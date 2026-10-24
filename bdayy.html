@@ -1,0 +1,454 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Happy Birthday, My tutu! ✨❤️</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link href="https://fonts.googleapis.com/css2?family=Amatic+SC&display=swap" rel="stylesheet">
+  <style>
+    /* Base */
+    :root {
+      --pink:#ff6f91;
+      --peach:#fff8f0;
+      --shadow:0 10px 20px rgba(0,0,0,.25);
+    }
+    * { box-sizing: border-box; }
+    body {
+      background: var(--peach);
+      font-family: 'Amatic SC', cursive;
+      text-align: center;
+      padding: 20px;
+      padding-bottom: 200px;
+      margin: 0;
+    }
+
+   /* --- Login Screen --- */
+#loginScreen {
+  position: fixed;
+  inset: 0;
+  background: #fff8f0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  z-index: 9999;
+  font-family: 'Amatic SC', cursive;
+}
+
+.login-wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 25px;
+}
+
+.login-box {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.side-img {
+  width: 120px;
+  height: auto;
+  border-radius: 12px;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+}
+
+/* Responsive tweak for phones */
+@media (max-width: 600px) {
+  .login-wrapper {
+    flex-direction: column;   /* stack vertically */
+    gap: 15px;
+  }
+  .side-img {
+    width: 100px;   /* smaller on phone */
+  }
+}
+
+    #loginScreen h2 {
+      color: #ff6f91;
+      font-size: 2em;
+    }
+    #loginScreen input {
+      padding: 10px;
+      border: 2px solid #ff6f91;
+      border-radius: 10px;
+      font-size: 1.2em;
+      margin-top: 15px;
+      text-align: center;
+    }
+    #loginScreen button {
+      margin-top: 20px;
+      padding: 10px 20px;
+      background: #ff6f91;
+      color: white;
+      border: none;
+      border-radius: 15px;
+      font-size: 1.2em;
+      cursor: pointer;
+    }
+
+    h1 {
+      font-size: 2.5em;
+      color: var(--pink);
+      position: relative;
+      z-index: 2;
+      margin: 0 0 10px;
+    }
+
+    .reason {
+      margin: 20px auto;
+      font-size: 1.8em;
+      color: #333;
+      background: #ffdae0;
+      padding: 20px;
+      border-radius: 20px;
+      max-width: 600px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+      position: relative;
+      z-index: 2;
+    }
+
+    .button {
+      margin-top: 30px;
+      padding: 12px 24px;
+      color: white;
+      font-size: 1.1em;
+      font-family: 'Amatic SC', cursive;
+      border: none;
+      border-radius: 25px;
+      cursor: pointer;
+      z-index: 2;
+      position: relative;
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+    .button:hover {
+      transform: scale(1.08);
+      box-shadow: 0 6px 15px rgba(0,0,0,0.2);
+    }
+    .button:first-of-type { background: var(--pink); }
+    .photo-button-wrapper .button { background: #ffb347; }
+    .photo-button-wrapper { margin-top: 80px; }
+
+    /* Surprise button */
+    .surprise-button-wrapper { margin-top: 50px; }
+    .button.surprise-btn { background: #4fc3f7; }
+    @keyframes bounce {
+      0%, 20%, 50%, 80%, 100% { transform: translateY(0); }
+      40% { transform: translateY(-12px); }
+      60% { transform: translateY(-6px); }
+    }
+    .button.surprise-btn:active { animation: bounce 0.5s; }
+
+    .photo-board {
+      display: none;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 30px;
+      margin-top: 40px;
+      position: relative;
+      z-index: 2;
+      animation: fadeIn .8s ease forwards;
+      max-width: 1200px;
+      margin-left: auto;
+      margin-right: auto;
+      justify-items: center;
+    }
+    .photo {
+      width: 100%;
+      aspect-ratio: 1/1;
+      border-radius: 20px;
+      overflow: hidden;
+      transition: transform .25s ease, box-shadow .25s ease;
+      cursor: pointer;
+    }
+    .photo img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      border-radius: 20px;
+      display: block;
+      transition: transform .25s ease;
+    }
+    .photo:hover{ transform: scale(1.05); box-shadow: var(--shadow); }
+
+    @keyframes fadeIn{
+      from{opacity:0; transform:scale(.98)}
+      to{opacity:1; transform:scale(1)}
+    }
+
+    /* Floating text */
+    .loveText{
+      position: fixed;
+      bottom: 0;
+      font-family: 'Amatic SC', cursive;
+      font-size: 1.4em;
+      color: rgba(255,111,145,.9);
+      white-space: nowrap;
+      pointer-events: none;
+      animation: flyUpText 10s ease-in forwards;
+      z-index: 1;
+    }
+    @keyframes flyUpText{
+      0%{ transform: translateY(0); opacity:1 }
+      80%{ opacity:1 }
+      100%{ transform: translateY(-100vh); opacity:0 }
+    }
+
+    /* Lightbox */
+    .lightbox{
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,.9);
+      justify-content: center;
+      align-items: center;
+      z-index: 1000;
+      padding: 20px;
+      touch-action: none;
+    }
+    .lightbox.open{ display:flex; }
+    .lightbox-img{
+      max-width: 92vw;
+      max-height: 85vh;
+      border-radius: 18px;
+      box-shadow: 0 0 25px rgba(0,0,0,.5);
+      user-select: none;
+    }
+    .lb-btn{
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      color: #fff;
+      font-size: 2.4rem;
+      line-height: 1;
+      padding: 10px 14px;
+      cursor: pointer;
+      user-select: none;
+      transition: transform .15s ease, opacity .15s ease;
+      opacity: .9;
+    }
+    .lb-prev{ left: 18px; }
+    .lb-next{ right: 18px; }
+    .lb-close{ top: 18px; right: 22px; transform: none; font-size: 2.8rem; }
+    .lb-btn:hover{ transform: translateY(-50%) scale(1.08); opacity:1 }
+    .lb-close:hover{ transform: scale(1.08); }
+
+    /* Responsiveness */
+    @media (max-width:1024px){
+      h1{ font-size: 2.2em; }
+      .reason{ font-size: 1.6em; max-width: 90%; }
+      .photo-board{ grid-template-columns: repeat(3, 1fr); }
+    }
+    @media (max-width:768px){
+      h1{ font-size: 2em; }
+      .reason{ font-size: 1.4em; }
+      .button{ font-size: 1em; padding: 10px 20px; }
+      .loveText{ font-size: 1.2em; }
+      .photo-board{ grid-template-columns: repeat(2, 1fr); }
+    }
+    @media (max-width:480px){
+      h1{ font-size: 1.8em; }
+      .reason{ font-size: 1.2em; padding: 15px; }
+      .loveText{ font-size: 1.05em; }
+      .photo-board{ grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+  <!-- Login Screen -->
+<div id="loginScreen">
+  <div class="login-wrapper">
+    <!-- Left image -->
+    <img src="C:\Users\acer\Downloads\catty.1.png"alt="Left pic" class="side-img">
+
+    <!-- Password block -->
+    <div class="login-box">
+      <h2>🔒 Enter Passcode</h2>
+      <input type="password" id="passInput" placeholder="Enter code" autofocus>
+      <button onclick="checkPass()">Unlock</button>
+      <p id="error" style="color:red; display:none;">Wrong code! go away your not my kiki!</p>
+    </div>
+
+    <!-- Right image -->
+    <img src="C:\Users\acer\Downloads\catty.1.png" alt="Right pic" class="side-img">
+  </div>
+</div>
+
+  <audio id="bg-music" loop hidden>
+    <source src="C:\Users\acer\Downloads\HIM.MP3" type="audio/mpeg">
+  </audio>
+<div id="mainContent" style="display:none;"></div>
+  <h1>20 Reasons Why I Love You</h1>
+  <div class="reason" id="reasonBox">Click below to start!</div>
+  <button class="button" onclick="showReason()">✨ Next Reason 💗</button>
+
+  <!-- Reveal photos button -->
+  <div class="photo-button-wrapper">
+    <button class="button" onclick="togglePhotos()">✨ Unfold Memories 💌</button>
+  </div>
+
+  <!-- Gallery -->
+  <div class="photo-board" id="photoBoard">
+    <div class="photo"><img src="her1.jpeg" alt="Kee 1"></div>
+<div class="photo"><img src="her2.jpeg" alt="Kee 1"></div>
+<div class="photo"><img src="her3.jpeg" alt="Kee 1"></div>
+<div class="photo"><img src="her4.jpeg" alt="Kee 1"></div>
+<div class="photo"><img src="her5.jpeg" alt="Kee 1"></div>
+<div class="photo"><img src="her6.jpeg" alt="Kee 1"></div>
+<div class="photo"><img src="her7.jpeg" alt="Kee 1"></div>
+<div class="photo"><img src="her8.jpeg" alt="Kee 1"></div>
+      </div>
+
+  <!-- Surprise Button -->
+  <div class="surprise-button-wrapper">
+    <button class="button surprise-btn" onclick="showSurprise()">🎁 Suprise! 💙</button>
+  </div>
+
+  <!-- Lightbox -->
+  <div class="lightbox" id="lightbox">
+    <span class="lb-btn lb-close" id="lbClose" aria-label="Close">&times;</span>
+    <span class="lb-btn lb-prev" id="lbPrev" aria-label="Previous">&#10094;</span>
+    <img class="lightbox-img" id="lbImg" src="" alt="">
+    <span class="lb-btn lb-next" id="lbNext" aria-label="Next">&#10095;</span>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+  <script>
+    // Password check function
+    function checkPass(){
+      const input = document.getElementById("passInput").value;
+      if(input === "tutty2506"){
+        document.getElementById("loginScreen").style.display = "none";
+        playMusic();
+      } else {
+        document.getElementById("error").style.display = "block";
+      }
+    }
+
+    /* music for kee */
+    function playMusic() {
+      const music = document.getElementById("bg-music");
+      music.play().catch(() => {
+        console.log("Autoplay blocked, will play after interaction.");
+      });
+    }
+
+    /* Reasons */
+    const reasons = [
+      "Your laugh is my favorite sound 🎶",
+      "You make everything feel like home💋🏡",
+      "You support my dreams at day and suprise me in dreams at night 💭",
+      "You’re my lil cat😽",
+      "You give the best hugs & kisses 🤗",
+      "You're weird in the same way I am 🦄",
+      "You're my safe space 💖",
+      "You're strong and kind 💪",
+      "You're my chella tutu😊💋",
+      "You love me even when Im annoying 🐒",
+      "You’re my favorite notification 📱",
+      "You're thoughtful and sweet 🍯",
+      "You're the daring kinda fun 💃",
+      "You're eyes and nose is just aww 🥺",
+      "You know how to cheer me up and make everyday brighter ☀️🧸",
+      "You believe in us 🌙",
+      "You’re my partner in crime 🔐",
+      "You love me through my messes and flaws 🎁",
+      "You are my forever🐰😽💋"
+    ];
+    let index = 0;
+    function showReason() {
+      const box = document.getElementById('reasonBox');
+      if (index < reasons.length) {
+        box.innerText = reasons[index++];
+      } else {
+        box.innerText = "That's just the beginning ❤️";
+      }
+      confetti({ particleCount: 100, spread: 70, origin: { y: 0.6 } });
+    }
+
+    /* Toggle gallery */
+    function togglePhotos() {
+      const board = document.getElementById('photoBoard');
+      if (board.style.display === "grid") {
+        board.style.display = "none";
+      } else {
+        board.style.display = "grid";
+        confetti({ particleCount: 150, spread: 100, origin: { y: 0.7 } });
+      }
+    }
+
+    /* Surprise Button */
+    function showSurprise() {
+      confetti({ particleCount: 200, spread: 120, origin: { y: 0.6 } });
+      setTimeout(() => {
+        window.open("https://drive.google.com/drive/folders/1uRKU9qPW7Wpxm8p4w3pPrTMh0TnSj_Ke", "_blank");
+      }, 2000);
+    }
+
+    /* Floating text */
+    function spawnLoveText() {
+      const text = document.createElement('div');
+      text.className = 'loveText';
+      text.innerText = 'Happy Birthday Sweetheart, I love you Navee 🐒';
+      text.style.left = Math.random() * 90 + 'vw';
+      text.addEventListener("animationend", () => text.remove());
+      document.body.appendChild(text);
+    }
+    let loveInterval;
+    function startLoveText(){
+      if(!loveInterval){ loveInterval=setInterval(spawnLoveText,2000); }
+    }
+    function stopLoveText(){ clearInterval(loveInterval); loveInterval=null; }
+    document.addEventListener("visibilitychange", ()=> document.hidden ? stopLoveText() : startLoveText());
+    startLoveText();
+
+    /* Lightbox + Flip-through + Swipe */
+    const imgs = Array.from(document.querySelectorAll('#photoBoard img'));
+    const lightbox = document.getElementById('lightbox');
+    const lbImg = document.getElementById('lbImg');
+    const lbPrev = document.getElementById('lbPrev');
+    const lbNext = document.getElementById('lbNext');
+    const lbClose = document.getElementById('lbClose');
+    let current = 0;
+    function openLB(i){ current = i; lbImg.src = imgs[current].src; lightbox.classList.add('open'); }
+    function closeLB(){ lightbox.classList.remove('open'); }
+    function show(delta){ current = (current + delta + imgs.length) % imgs.length; lbImg.src = imgs[current].src; }
+    imgs.forEach((img,i)=> img.addEventListener('click', ()=> openLB(i)));
+    lbClose.addEventListener('click', closeLB);
+    lbPrev.addEventListener('click', ()=> show(-1));
+    lbNext.addEventListener('click', ()=> show(1));
+    lightbox.addEventListener('click', (e)=> { if(e.target === lightbox) closeLB(); });
+
+    // Keyboard controls
+    document.addEventListener('keydown', (e)=>{
+      if(!lightbox.classList.contains('open')) return;
+      if(e.key === 'ArrowRight') show(1);
+      if(e.key === 'ArrowLeft') show(-1);
+      if(e.key === 'Escape') closeLB();
+    });
+
+    // Touch swipe
+    let startX = null, startY = null, swiping = false;
+    lightbox.addEventListener('touchstart', (e)=>{
+      if(!lightbox.classList.contains('open')) return;
+      const t = e.changedTouches[0];
+      startX = t.clientX; startY = t.clientY;
+      swiping = true;
+    }, {passive:true});
+    lightbox.addEventListener('touchmove', (e)=> { if(swiping) e.preventDefault(); }, {passive:false});
+    lightbox.addEventListener('touchend', (e)=>{
+      if(!swiping) return;
+      const t = e.changedTouches[0];
+      const dx = t.clientX - startX;
+      const dy = t.clientY - startY;
+      const absX = Math.abs(dx), absY = Math.abs(dy);
+      const THRESH = 50;
+      if(absX > absY && absX > THRESH){
+        if(dx < 0) show(1); else show(-1);
+      }
+      swiping = false;
+    });
+  </script>
+</body>
+</html>
